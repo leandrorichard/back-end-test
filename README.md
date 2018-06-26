@@ -1,52 +1,58 @@
-# Teste para desenvolvedor back-end
-O Focus Concursos é uma empresa que oferece cursos online preparatórios para concurso público.
-> https://focusconcursos.com.br 
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-## Instruções
-1. Faça um fork deste repositório;
-2. Implemente os items descritos na próxima seção;
-3. Faça um pull request para este repositório;
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
-## O que esperamos que desenvolva
-O teste consiste em gerar uma API que tenha os recursos de CRUD de produto e realize o cálculo de frete, usando serviço dos Correios, entre 02 CEP's.
-Utilize sqlite como banco de dados para o teste.
-Relação de tarefas para executar o teste:
-1. Criar migrations e seeders para a tabela produto;
-2. Criar comando no composer.json que permita executar refresh e seeder no banco;
-3. Cadastrar produto com os seguintes dados:
-  - nome do produto;
-  - sku;
-  - peso;
-  - altura;
-  - largura;
-  - profundidade;
-  - valor;
-4. Criar validador;
-5. Consultar produto por nome ou id. A consulta deve retornar apenas nome, id, sku e valor, em formato JSON ou XML;
-6. Editar os dados de um produto;
-7. Excluir um produto;
-8. Consultar o valor de frete entre 02 CEP's para um produto, em quantidade N, usando serviço dos Correios;
-9. Enviar uma notificação por email ao cadastrar um produto. O email pode ser enviado para o [mailtrap](http://mailtrap.io);
-10. Escrever testes;
+## About Laravel
 
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-## Considerações para o teste
-1. Utilizar linguagem PHP;
-2. Utilizar o framework [Laravel](https://laravel.com);
-3. Utilizar repository pattern;
-4. Implementar classes de serviços para chamar as classes de regras de negócio;
-5. Utilizar uma camada de apresentação/transformação de dados;
-6. Utilize interface para a classe de cálculo de frete;
-7. Utilize o service container para resolver a classe que implementa a interface de cáculo de frete, e registre num service provider chamado ApplicationServiceProvider.
-8. Não é permitido utilizar pacotes além dos que fazem parte da instalação padrão do Laravel;
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
 
-## O que iremos avaliar
-1. Conhecimento da linguagem;
-2. Conhecimento do framework;
-3. Qualidade do código;
-4. Abordagem para solução do teste;
-5. Conhecimento de orientação a objetos;
-6. Conhecimento de design patterns;
-7. Conhecimento de conceitos do SOLID;
-8. Conhecimento sobre API REST;
+## Learning Laravel
+
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+
+If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+
+## Laravel Sponsors
+
+We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
+- [User10](https://user10.com)
+- [Soumettre.fr](https://soumettre.fr/)
+- [CodeBrisk](https://codebrisk.com)
+- [1Forge](https://1forge.com)
+- [TECPRESSO](https://tecpresso.co.jp/)
+- [Pulse Storm](http://www.pulsestorm.net/)
+- [Runtime Converter](http://runtimeconverter.com/)
+- [WebL'Agence](https://weblagence.com/)
+
+## Contributing
+
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
