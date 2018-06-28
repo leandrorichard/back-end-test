@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProdutoResource;
+use App\Http\Resources\ProdutosResource;
 use App\Produto;
 use App\Repositories\Repository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+
 
 class ProdutoController extends Controller
 {
@@ -18,58 +22,58 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Repository[]|\Illuminate\Database\Eloquent\Collection
+     * @return ProdutosResource
      */
-    public function index()
+    public function index(): ProdutosResource
     {
-        return $this->model->all();
+        return new ProdutosResource($this->model->all());
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): ProdutoResource
     {
         $produto = $this->model->create($request->all());
-        return response()->json($produto, 201);
+        return new ProdutoResource($produto);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return ProdutoResource
      */
-    public function show($id)
+    public function show($id): ProdutoResource
     {
-        return $this->model->find($id);
+        return new ProdutoResource($this->model->find($id));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): ProdutoResource
     {
         $produto = $this->model->find($id);
         $produto->update($request->all());
-        return response()->json($produto, 200);
+        return new ProdutoResource($produto);
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return JsonResponse
      */
     public function destroy($id)
     {
