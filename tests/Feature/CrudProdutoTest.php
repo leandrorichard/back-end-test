@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\Produto;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CrudProdutoTest extends TestCase
 {
@@ -20,13 +18,20 @@ class CrudProdutoTest extends TestCase
     {
         $endpoint = self::API_URL;
         $data = array(
-            'nome' => 'Console PlayStation 4, Preto',
-            'sku' => 'D279CXX617',
-            'peso' => 3.58,
-            'altura' => 10.2,
-            'largura' => 35.00,
-            'profundidade' => 29.8,
-            'valor' => 2246.60
+            "nome" => "Console PlayStation 4, Preto",
+            "sku" => "D279CXX617",
+            "peso" => 3.58,
+            "altura" => 10.2,
+            "largura" => 35.00,
+            "profundidade" => 29.8,
+            "valor" => 2246.60
+        );
+        $dataAssert = array("data" => array(
+                "id" => 3,
+                "nome" => "Console PlayStation 4, Preto",
+                "sku" => "D279CXX617",
+                "valor" => 2246.60,
+            )
         );
         $headers = array(
             "Content-Type" => "application/json"
@@ -34,32 +39,39 @@ class CrudProdutoTest extends TestCase
 
         $response = $this->json(self::METHOD_POST, $endpoint, $data, $headers);
         $response->assertStatus(201);
-        $response->assertJson($data);
+        $response->assertJson($dataAssert);
     }
 
     public function testProdutoUpdated()
     {
         $endpoint = self::API_URL;
         $data = array(
-            'nome' => 'Console PlayStation 2, Preto'
+            "nome" => "Console PlayStation 2, Preto"
         );
         $headers = array(
             "Content-Type" => "application/json"
         );
 
         $produto = Produto::create(array(
-            'nome' => 'Console PlayStation 4, Preto',
-            'sku' => 'D279CXX617',
-            'peso' => 3.58,
-            'altura' => 10.2,
-            'largura' => 35.00,
-            'profundidade' => 29.8,
-            'valor' => 2246.60
+            "nome" => "Console PlayStation 4, Preto",
+            "sku" => "D279CXX617",
+            "peso" => 3.58,
+            "altura" => 10.2,
+            "largura" => 35.00,
+            "profundidade" => 29.8,
+            "valor" => 2246.60
         ));
+        $dataAssert = array("data" => array(
+                "id" => $produto->id,
+                "nome" => "Console PlayStation 2, Preto",
+                "sku" => "D279CXX617",
+                "valor" => 2246.60
+            )
+        );
 
         $response = $this->json(self::METHOD_PUT, "{$endpoint}/{$produto->id}", $data, $headers);
         $response->assertStatus(200);
-        $response->assertJson($data);
+        $response->assertJson($dataAssert);
     }
 
     public function testProdutoDeleted()
@@ -81,18 +93,14 @@ class CrudProdutoTest extends TestCase
         $headers = array(
             "Content-Type" => "application/json"
         );
-        $jsonStructure = array("*" =>
-            array(
-                "id",
-                "nome",
-                "sku",
-                "peso",
-                "altura",
-                "largura",
-                "profundidade",
-                "valor",
-                "created_at",
-                "updated_at"
+        $jsonStructure = array("data" =>
+            array("*" =>
+                array(
+                    "id",
+                    "nome",
+                    "sku",
+                    "valor",
+                )
             )
         );
 
