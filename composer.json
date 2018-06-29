@@ -50,6 +50,9 @@
         ],
         "test": [
             "vendor/bin/phpunit"
+        ],
+        "db:refresh": [
+            "@php artisan migrate:refresh --seed"
         ]
     },
     "config": {
