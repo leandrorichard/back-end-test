@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProdutoCreateRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Http\Resources\ProdutosResource;
 use App\Produto;
 use App\Repositories\Repository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 
 class ProdutoController extends Controller
@@ -33,10 +33,10 @@ class ProdutoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return JsonResponse
+     * @param ProdutoCreateRequest $request
+     * @return ProdutoResource
      */
-    public function store(Request $request): ProdutoResource
+    public function store(ProdutoCreateRequest $request): ProdutoResource
     {
         $produto = $this->model->create($request->all());
         return new ProdutoResource($produto);
@@ -57,11 +57,11 @@ class ProdutoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param ProdutoCreateRequest $request
      * @param  int $id
-     * @return JsonResponse
+     * @return ProdutoResource
      */
-    public function update(Request $request, $id): ProdutoResource
+    public function update(ProdutoCreateRequest $request, $id): ProdutoResource
     {
         $produto = $this->model->find($id);
         $produto->update($request->all());
@@ -75,7 +75,7 @@ class ProdutoController extends Controller
      * @param  int $id
      * @return JsonResponse
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $produto = $this->model->find($id);
         $produto->delete();
