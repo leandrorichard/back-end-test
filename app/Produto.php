@@ -2,12 +2,17 @@
 
 namespace App;
 
+use App\Events\ProdutoCreated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class Produto extends Model
 {
     protected $table = "produtos";
+
+    protected $dispatchesEvents = [
+        'created' => ProdutoCreated::class,
+    ];
 
     protected $hidden = [
         "peso",
