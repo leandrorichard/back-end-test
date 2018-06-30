@@ -5,10 +5,15 @@ namespace App;
 use App\Events\ProdutoCreated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 
 class Produto extends Model
 {
+    use Notifiable;
+
     protected $table = "produtos";
+
+    public $email = "leandro.richard.go@gmail.com";
 
     protected $dispatchesEvents = [
         'created' => ProdutoCreated::class,

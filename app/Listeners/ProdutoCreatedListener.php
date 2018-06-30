@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ProdutoCreated;
+use App\Notifications\ProdutoCreatedNotification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
@@ -28,7 +29,6 @@ class ProdutoCreatedListener
     public function handle(ProdutoCreated $event)
     {
         $produto = $event->produto;
-
-        // TODO: implementar logica para enviar email
+        $produto->notify(new ProdutoCreatedNotification($produto));
     }
 }
