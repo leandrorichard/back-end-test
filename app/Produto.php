@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Produto extends Model
 {
@@ -26,4 +27,13 @@ class Produto extends Model
         "profundidade",
         "valor",
     );
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public static function allByName(Request $request)
+    {
+        return self::where("nome", "like", "%{$request->input('nome')}%")->get();
+    }
 }

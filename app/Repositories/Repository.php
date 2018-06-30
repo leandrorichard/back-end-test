@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Repository implements RepositoryInterface
 {
@@ -16,6 +17,11 @@ class Repository implements RepositoryInterface
     public function all()
     {
         return $this->model->all();
+    }
+
+    public function allByName(Request $request)
+    {
+        return $this->model->allByName($request);
     }
 
     public function create(array $data)

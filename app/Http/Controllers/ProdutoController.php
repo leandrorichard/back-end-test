@@ -8,6 +8,7 @@ use App\Http\Resources\ProdutosResource;
 use App\Produto;
 use App\Repositories\Repository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 
 class ProdutoController extends Controller
@@ -22,11 +23,15 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return ProdutosResource
      */
-    public function index(): ProdutosResource
+    public function index(Request $request): ProdutosResource
     {
-        return new ProdutosResource($this->model->all());
+        if (0 < count($request->input('nome'))) {
+            return new ProdutosResource($this->model->allByName($request));
+        }
+        return new ProdutosResource($this->model->all($request->all()));
     }
 
 

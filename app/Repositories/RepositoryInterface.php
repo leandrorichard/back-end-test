@@ -1,17 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: leandrorichard
- * Date: 26/06/18
- * Time: 01:55
- */
 
 namespace App\Repositories;
 
 
+use Illuminate\Http\Request;
+
 interface RepositoryInterface
 {
     public function all();
+
+    public function allByName(Request $request);
 
     public function create(array $data);
 
