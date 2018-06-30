@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Produto;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,14 +12,16 @@ class ProdutoCreatedNotification extends Notification
 {
     use Queueable;
 
+    public $produto;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Produto $produto)
     {
-        //
+        $this->produto = $produto;
     }
 
     /**
@@ -40,10 +43,11 @@ class ProdutoCreatedNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $subject = "Novo produto criado.";
+        $view = "emails.produto-created";
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject($subject)
+                    ->view($view, ["produto" => $this->produto]);
     }
 
     /**
