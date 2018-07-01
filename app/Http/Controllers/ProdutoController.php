@@ -3,77 +3,83 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProdutoCreateRequest;
-use App\Http\Resources\ProdutoResource;
-use App\Http\Resources\ProdutosResource;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use App\Produto;
 use App\Repositories\Repository;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
+use App\Services\Produto\Create as CreateService;
+use App\Services\Produto\Index as IndexService;
+use App\Services\Produto\Show as ShowService;
+use App\Services\Produto\Update as UpdateService;
+use App\Services\Produto\Delete as DeleteService;
 
 class ProdutoController extends Controller
 {
     protected $model;
+    protected $createService;
+    protected $indexService;
+    protected $showService;
+    protected $updateService;
+    protected $deleteService;
 
-    public function __construct(Produto $produto)
+    public function __construct(Produto $produto, IndexService $indexService, CreateService $createService,
+                                ShowService $showService, UpdateService $updateService, DeleteService $deleteService)
     {
         $this->model = new Repository($produto);
+        $this->createService = $createService;
+        $this->indexService = $indexService;
+        $this->showService = $showService;
+        $this->updateService = $updateService;
+        $this->deleteService = $deleteService;
     }
 
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return ProdutosResource
+     * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $headerAccept = $request->headers->get("accept");
-        $resource = [];
-
         if("application/xml" == $headerAccept) {
-            if (0 < count($request->input('nome'))) {
-                $resource = (new ProdutosResource($this->model->allByName($request)))->toArray($request);
-            } else {
-                $resource = (new ProdutosResource($this->model->all()))->toArray($request);
-            }
-
-            return response()->xml($resource);
+            return response()->xml($this->indexService->handle($request));
         }
-
-        if (0 < count($request->input('nome'))) {
-            $resource = (new ProdutosResource($this->model->allByName($request)))->toArray($request);
-        } else {
-            $resource = (new ProdutosResource($this->model->all()))->toArray($request);
-        }
-
-        return response()->json($resource);
+        return response()->json($this->indexService->handle($request));
 
     }
-
 
     /**
      * Store a newly created resource in storage.
      *
      * @param ProdutoCreateRequest $request
-     * @return ProdutoResource
+     * @return Response
      */
-    public function store(ProdutoCreateRequest $request): ProdutoResource
+    public function store(ProdutoCreateRequest $request): Response
     {
-        $produto = $this->model->create($request->all());
-        return new ProdutoResource($produto);
+        $headerAccept = $request->headers->get("accept");
+        if("application/xml" == $headerAccept) {
+            return response()->xml($this->createService->handle($request));
+        }
+        return response()->json($this->createService->handle($request));
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return ProdutoResource
+     * @param Request $request
+     * @return Response
      */
-    public function show($id): ProdutoResource
+    public function show(Request $request): Response
     {
-        return new ProdutoResource($this->model->find($id));
+        $headerAccept = $request->headers->get("accept");
+        if("application/xml" == $headerAccept) {
+            return response()->xml($this->showService->handle($request));
+        }
+        return response()->json($this->showService->handle($request));
     }
 
 
@@ -81,39 +87,31 @@ class ProdutoController extends Controller
      * Update the specified resource in storage.
      *
      * @param ProdutoCreateRequest $request
-     * @param  int $id
-     * @return ProdutoResource
+     * @return Response
      */
-    public function update(ProdutoCreateRequest $request, $id): ProdutoResource
+    public function update(ProdutoCreateRequest $request): Response
     {
-        $produto = $this->model->find($id);
-        $produto->update($request->all());
-        return new ProdutoResource($produto);
+        $headerAccept = $request->headers->get("accept");
+        if ("application/xml" == $headerAccept) {
+            return response()->xml($this->updateService->handle($request));
+        }
+        return response()->json($this->updateService->handle($request));
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Request $request
      * @return JsonResponse
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $produto = $this->model->find($id);
-        $produto->delete();
-        return response()->json(null, 204);
-    }
-
-    public function toXML(\SimpleXMLElement $object, array $data, $level = 0)
-    {
-        foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                $new_object = $object->addChild(($level == 0) ? 'produto' : $key);
-                $this->toXML($new_object, $value, $level + 1);
-            } else {
-                $object->addChild($key, $value);
-            }
+        $headerAccept = $request->headers->get("accept");
+        $this->deleteService->handle($request);
+        if ("application/xml" == $headerAccept) {
+            return response()->xml(null, 204);
         }
+        return response()->json(null, 204);
     }
 }

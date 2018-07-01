@@ -20,7 +20,7 @@ class XmlResponse
         ];
     }
 
-    public function toXML(\SimpleXMLElement $object, array $data, $level = 0)
+    public function toXML(\SimpleXMLElement $object, array $data, $level = 0, $status)
     {
         foreach ($data as $key => $value) {
             if (is_array($value)) {
@@ -32,6 +32,6 @@ class XmlResponse
         }
 
 
-        return Response::make($object->asXML(), 200, $this->header());
+        return Response::make($object->asXML(), $status, $this->header());
     }
 }
