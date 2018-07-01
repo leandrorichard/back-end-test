@@ -9,6 +9,7 @@ use App\Produto;
 use App\Repositories\Repository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 class ProdutoController extends Controller
@@ -26,12 +27,29 @@ class ProdutoController extends Controller
      * @param Request $request
      * @return ProdutosResource
      */
-    public function index(Request $request): ProdutosResource
+    public function index(Request $request)
     {
-        if (0 < count($request->input('nome'))) {
-            return new ProdutosResource($this->model->allByName($request));
+        $headerAccept = $request->headers->get("accept");
+        $resource = [];
+
+        if("application/xml" == $headerAccept) {
+            if (0 < count($request->input('nome'))) {
+                $resource = (new ProdutosResource($this->model->allByName($request)))->toArray($request);
+            } else {
+                $resource = (new ProdutosResource($this->model->all()))->toArray($request);
+            }
+
+            return response()->xml($resource);
         }
-        return new ProdutosResource($this->model->all($request->all()));
+
+        if (0 < count($request->input('nome'))) {
+            $resource = (new ProdutosResource($this->model->allByName($request)))->toArray($request);
+        } else {
+            $resource = (new ProdutosResource($this->model->all()))->toArray($request);
+        }
+
+        return response()->json($resource);
+
     }
 
 
@@ -85,5 +103,17 @@ class ProdutoController extends Controller
         $produto = $this->model->find($id);
         $produto->delete();
         return response()->json(null, 204);
+    }
+
+    public function toXML(\SimpleXMLElement $object, array $data, $level = 0)
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $new_object = $object->addChild(($level == 0) ? 'produto' : $key);
+                $this->toXML($new_object, $value, $level + 1);
+            } else {
+                $object->addChild($key, $value);
+            }
+        }
     }
 }

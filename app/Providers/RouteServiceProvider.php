@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Response\XmlResponse;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,7 +25,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Response::macro('xml', function ($value, $status = 200, $config = []) {
+            $xml = new \SimpleXMLElement("<feed/>");
+            return (new XmlResponse())->toXML($xml, $value, 0);
+        });
 
         parent::boot();
     }
