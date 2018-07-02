@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProdutoCreateRequest;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-
 use App\Produto;
 use App\Repositories\Repository;
-
 use App\Services\Produto\Create as CreateService;
+use App\Services\Produto\Delete as DeleteService;
 use App\Services\Produto\Index as IndexService;
 use App\Services\Produto\Show as ShowService;
 use App\Services\Produto\Update as UpdateService;
-use App\Services\Produto\Delete as DeleteService;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProdutoController extends Controller
 {
@@ -61,9 +59,9 @@ class ProdutoController extends Controller
     {
         $headerAccept = $request->headers->get("accept");
         if("application/xml" == $headerAccept) {
-            return response()->xml($this->createService->handle($request));
+            return response()->xml($this->createService->handle($request), 201);
         }
-        return response()->json($this->createService->handle($request));
+        return response()->json($this->createService->handle($request), 201);
 
     }
 
@@ -103,9 +101,9 @@ class ProdutoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request): Response
     {
         $headerAccept = $request->headers->get("accept");
         $this->deleteService->handle($request);
