@@ -26,12 +26,11 @@ class CrudProdutoTest extends TestCase
             "profundidade" => 29.8,
             "valor" => 2246.60
         );
-        $dataAssert = array("data" => array(
-                "id" => 3,
-                "nome" => "Console PlayStation 4, Preto",
-                "sku" => "D279CXX617",
-                "valor" => 2246.60,
-            )
+        $dataAssert = array(
+            "id" => 3,
+            "nome" => "Console PlayStation 4, Preto",
+            "sku" => "D279CXX617",
+            "valor" => 2246.60,
         );
         $headers = array(
             "Content-Type" => "application/json",
@@ -53,7 +52,7 @@ class CrudProdutoTest extends TestCase
         );
 
         $dataUpdate = array(
-            "nome" => "Console PlayStation 2, Branco",
+            "nome" => "Console PlayStation 1, Branco",
             "sku" => "D279CXX617",
             "peso" => 3.58,
             "altura" => 10.2,
@@ -62,7 +61,7 @@ class CrudProdutoTest extends TestCase
             "valor" => 2326.60
         );
         $produto = Produto::create(array(
-            "nome" => "Console PlayStation 4, Preto",
+            "nome" => "Console PlayStation 1, Preto",
             "sku" => "D279CXX617",
             "peso" => 3.58,
             "altura" => 10.2,
@@ -70,12 +69,11 @@ class CrudProdutoTest extends TestCase
             "profundidade" => 29.8,
             "valor" => 2246.60
         ));
-        $dataAssert = array("data" => array(
-                "id" => $produto->id,
-                "nome" => "Console PlayStation 2, Preto",
-                "sku" => "D279CXX617",
-                "valor" => 2326.60
-            )
+        $dataAssert = array(
+            "id" => $produto->id,
+            "nome" => "Console PlayStation 1, Branco",
+            "sku" => "D279CXX617",
+            "valor" => 2326.60
         );
 
         $response = $this->json(self::METHOD_PUT, "{$endpoint}/{$produto->id}", $dataUpdate, $headers);
@@ -104,15 +102,15 @@ class CrudProdutoTest extends TestCase
             "Content-Type" => "application/json",
             "Accept" => "application/json",
         );
-        $jsonStructure = array("data" =>
-            array("*" =>
+        $jsonStructure = array(
+//            array("*" =>
                 array(
                     "id",
                     "nome",
                     "sku",
                     "valor",
                 )
-            )
+//            )
         );
 
         $response = $this->json(self::METHOD_GET, $endpoint, $data, $headers);
