@@ -2,7 +2,6 @@
 
 namespace App\Services\Produto;
 
-
 use App\Http\Requests\ProdutoCreateRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Produto;
