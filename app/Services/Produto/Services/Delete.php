@@ -2,7 +2,7 @@
 
 namespace App\Services\Produto\Services;
 
-use App\Produto;
+use App\Repositories\Produto\RepositoryContract;
 use App\Services\Produto\Contracts\DeleteContract;
 use Illuminate\Http\Request;
 
@@ -10,9 +10,9 @@ class Delete implements DeleteContract
 {
     protected $model;
 
-    public function __construct(Produto $produto)
+    public function __construct(RepositoryContract $repositoryContract)
     {
-        $this->model = $produto;
+        $this->model = $repositoryContract;
     }
 
     public function handle(Request $request)
