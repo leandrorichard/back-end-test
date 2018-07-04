@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Produto;
 
 
 use Illuminate\Http\Request;

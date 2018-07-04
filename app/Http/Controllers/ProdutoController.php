@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProdutoCreateRequest;
-use App\Produto;
-use App\Repositories\Repository;
 use App\Services\Produto\Contracts\CreateContract as CreateContract;
 use App\Services\Produto\Contracts\DeleteContract as DeleteContract;
 use App\Services\Produto\Contracts\IndexContract as IndexContract;
@@ -15,17 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProdutoController extends Controller
 {
-    protected $model;
     protected $createService;
     protected $indexService;
     protected $showService;
     protected $updateService;
     protected $deleteService;
 
-    public function __construct(Produto $produto, IndexContract $indexService, CreateContract $createService,
+    public function __construct(IndexContract $indexService, CreateContract $createService,
                                 ShowContract $showService, UpdateContract $updateService, DeleteContract $deleteService)
     {
-        $this->model = new Repository($produto);
         $this->createService = $createService;
         $this->indexService = $indexService;
         $this->showService = $showService;
