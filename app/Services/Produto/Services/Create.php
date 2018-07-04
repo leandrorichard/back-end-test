@@ -4,17 +4,16 @@ namespace App\Services\Produto\Services;
 
 use App\Http\Requests\ProdutoCreateRequest;
 use App\Http\Resources\ProdutoResource;
-use App\Produto;
-use App\Repositories\Repository;
+use App\Repositories\Produto\RepositoryContract;
 use App\Services\Produto\Contracts\CreateContract;
 
 class Create implements CreateContract
 {
     protected $model;
 
-    public function __construct(Produto $produto)
+    public function __construct(RepositoryContract $repositoryContract)
     {
-        $this->model = new Repository($produto);
+        $this->model = $repositoryContract;
     }
 
     public function handle(ProdutoCreateRequest $request): array
