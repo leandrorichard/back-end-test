@@ -20,27 +20,27 @@ Route::group([
 
         Route::get('', [
             'as' => 'index',
-            'uses' => 'ProdutoController@index'
+            'uses' => 'Produto\IndexController@index'
         ]);
 
         Route::get('{produto?}', [
             'as' => 'show',
-            'uses' => 'ProdutoController@show'
+            'uses' => 'Produto\ShowController@show'
         ]);
 
         Route::post('', [
             'as' => 'store',
-            'uses' => 'ProdutoController@store'
+            'uses' => 'Produto\CreateController@store'
         ]);
 
         Route::put('{produto}', [
             'as' => 'update',
-            'uses' => 'ProdutoController@update'
+            'uses' => 'Produto\UpdateController@update'
         ]);
 
         Route::delete('{produto}', [
             'as' => 'delete',
-            'uses' => 'ProdutoController@delete'
+            'uses' => 'Produto\DeleteController@delete'
         ]);
     });
 
