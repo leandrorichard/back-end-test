@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Produto;
+use App\Repositories\Produto\Repository;
+use App\Repositories\Produto\RepositoryContract;
 use App\Services\Produto\Contracts\CreateContract;
 use App\Services\Produto\Contracts\DeleteContract;
 use App\Services\Produto\Contracts\IndexContract;
@@ -22,6 +25,16 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
+    {
+
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
     {
         $this->app->bind(
             CreateContract::class,
@@ -46,15 +59,10 @@ class AppServiceProvider extends ServiceProvider
             UpdateContract::class,
             Update::class
         );
-    }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
+        $this->app->bind(RepositoryContract::class, function ($app) {
+            $produto = new Produto();
+            return new Repository($produto);
+        });
     }
 }
