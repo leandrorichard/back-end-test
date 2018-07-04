@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProdutoCreateRequest;
 use App\Produto;
 use App\Repositories\Repository;
-use App\Services\Produto\Create as CreateService;
-use App\Services\Produto\Delete as DeleteService;
-use App\Services\Produto\Index as IndexService;
-use App\Services\Produto\Show as ShowService;
-use App\Services\Produto\Update as UpdateService;
+use App\Services\Produto\Contracts\CreateContract as CreateContract;
+use App\Services\Produto\Contracts\DeleteContract as DeleteContract;
+use App\Services\Produto\Contracts\IndexContract as IndexContract;
+use App\Services\Produto\Contracts\ShowContract as ShowContract;
+use App\Services\Produto\Contracts\UpdateContract as UpdateContract;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,8 +22,8 @@ class ProdutoController extends Controller
     protected $updateService;
     protected $deleteService;
 
-    public function __construct(Produto $produto, IndexService $indexService, CreateService $createService,
-                                ShowService $showService, UpdateService $updateService, DeleteService $deleteService)
+    public function __construct(Produto $produto, IndexContract $indexService, CreateContract $createService,
+                                ShowContract $showService, UpdateContract $updateService, DeleteContract $deleteService)
     {
         $this->model = new Repository($produto);
         $this->createService = $createService;

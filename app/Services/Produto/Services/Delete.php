@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services\Produto;
+namespace App\Services\Produto\Services;
 
 use App\Produto;
+use App\Services\Produto\Contracts\DeleteContract;
 use Illuminate\Http\Request;
 
-class Delete
+class Delete implements DeleteContract
 {
     protected $model;
 

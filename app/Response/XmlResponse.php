@@ -25,7 +25,7 @@ class XmlResponse
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $new_object = $object->addChild(($level == 0) ? 'produto' : $key);
-                $this->toXML($new_object, $value, $level + 1);
+                $this->toXML($new_object, $value, $level + 1, $status);
             } else {
                 $object->addChild($key, $value);
             }

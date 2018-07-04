@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Produto;
+namespace App\Services\Produto\Services;
 
 use App\Http\Requests\ProdutoCreateRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Produto;
 use App\Repositories\Repository;
+use App\Services\Produto\Contracts\CreateContract;
 
-class Create
+class Create implements CreateContract
 {
     protected $model;
 

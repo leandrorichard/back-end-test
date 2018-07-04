@@ -27,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Response::macro('xml', function ($value, $status = 200, $config = []) {
             $xml = new \SimpleXMLElement("<feed/>");
-            return (new XmlResponse())->toXML($xml, $value, 0);
+            return (new XmlResponse())->toXML($xml, $value, 0, $status);
         });
 
         parent::boot();

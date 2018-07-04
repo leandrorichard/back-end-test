@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Services\Produto;
+namespace App\Services\Produto\Services;
 
 
 use App\Http\Requests\ProdutoCreateRequest;
 use App\Http\Resources\ProdutoResource;
 use App\Produto;
 use App\Repositories\Repository;
+use App\Services\Produto\Contracts\UpdateContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class Update
+class Update implements UpdateContract
 {
     protected $model;
 

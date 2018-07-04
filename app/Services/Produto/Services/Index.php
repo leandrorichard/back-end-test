@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Produto;
+namespace App\Services\Produto\Services;
 
 use App\Http\Resources\ProdutosResource;
 use App\Produto;
 use App\Repositories\Repository;
+use App\Services\Produto\Contracts\IndexContract;
 use Illuminate\Http\Request;
 
-class Index
+class Index implements IndexContract
 {
     protected $model;
 

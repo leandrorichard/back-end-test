@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Produto;
+namespace App\Services\Produto\Services;
 
 use App\Http\Resources\ProdutoResource;
 use App\Produto;
+use App\Services\Produto\Contracts\ShowContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class Show
+class Show implements ShowContract
 {
     protected $model;
 
