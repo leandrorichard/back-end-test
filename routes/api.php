@@ -44,4 +44,14 @@ Route::group([
         ]);
     });
 
+    Route::group([
+        'prefix' => 'calculos',
+        'as' => 'calculos.'
+    ], function() {
+        Route::get('correios', [
+            'as' => 'correios',
+            'uses' => 'Calculos\CalculoPrazoController@handle'
+        ]);
+    });
+
 });
