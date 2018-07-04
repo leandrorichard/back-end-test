@@ -17,6 +17,6 @@ class CalculoPrazoController
 
     public function handle(CalculoPrecoRequest $request): Response
     {
-        return $this->service->calcular($request);
+        return response()->json($this->service->calcular($request));
     }
 }
